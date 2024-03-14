@@ -21,18 +21,45 @@ client.on('qr', (qr) => {
 client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 21h
-    cron.schedule('57 21 * * *', () => {
-        sendMessage();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-    // verifica se a mensagem foi respondida todo dia às 22h
-    cron.schedule('0 22 * * *', () => {
-        checkAnswer();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-});
+
+    function horario(hora, minuto) {
+        const cronExpression = `${minuto} ${hora} * * *`;
+        cron.schedule(cronExpression, () => {
+          sendMessage();
+        }, {
+          timezone: 'America/Sao_Paulo'
+        });
+      }
+
+    horario(13, 5);
+    horario(13, 10);
+    horario(13, 15);
+    horario(13, 20);
+
+      
+    function checkAnswer(hora, minuto){
+        const cronExpression = `${minuto} ${hora} * * *`;
+        cron.schedule(cronExpression, () => {
+            checkAnswer();
+        }, {
+            timezone: 'America/Sao_Paulo'
+        });
+    }
+
+    checkAnswer(13, 9);
+    checkAnswer(13, 14);
+    checkAnswer(13, 19);
+    checkAnswer(13, 24);
+
+   
+    
+//     // verifica se a mensagem foi respondida todo dia às 22h
+//     cron.schedule('0 22 * * *', () => {
+//         checkAnswer();
+//     }, {
+//         timezone: 'America/Sao_Paulo'
+//     });
+ });
 
 // executado quando uma mensagem é recebida
 client.on('message', async (msg) => {
@@ -49,15 +76,18 @@ client.on('message', async (msg) => {
 
 // manda a mensagem
 async function sendMessage() {
+    const dataAtual = new Date();
+    const horaAtual = dataAtual.toLocaleTimeString();
+
     respondeu = false;
-    const message = 'Oi, já lavo o fedido hoje? 🤔';
 
     try {
+        const message = `Oi mo, já bateu o ponto das ${horaAtual}? 🤔`;
         await client.sendMessage(groupChatId, message);
         console.log('Message sent:', message);
-    } catch (err) {
+      } catch (err) {
         console.error('Error sending message:', err);
-    }
+      }
 }
 
 // verifica se a mensagem foi respondida. se não, seta um lembrete a cada hora
@@ -71,7 +101,7 @@ async function checkAnswer() {
 
 // manda o lembrete
 async function sendReminder() {
-    await client.sendMessage(groupChatId, 'Responde ai, já lavo o fedido? 🤔');
+    await client.sendMessage(groupChatId, 'Olha, o pontooooo...');
 }
 
 client.initialize();
