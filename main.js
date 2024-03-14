@@ -20,46 +20,58 @@ client.on('qr', (qr) => {
 // quando o cliente está pronto
 client.on('ready', () => {
     console.log('Client is ready!');
-    // manda a mensagem todo dia às 21h
+    // manda a mensagem todo dia às 13h
 
-    function horario(hora, minuto) {
-        const cronExpression = `${minuto} ${hora} * * *`;
-        cron.schedule(cronExpression, () => {
-          sendMessage();
-        }, {
-          timezone: 'America/Sao_Paulo'
-        });
-      }
+    cron.schedule('25 14 * * *', () => {
+        sendMessage();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
 
-    horario(13, 5);
-    horario(13, 10);
-    horario(13, 15);
-    horario(13, 20);
+    cron.schedule('27 14 * * *', () => {
+        sendMessage();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
 
-      
-    function checkAnswer(hora, minuto){
-        const cronExpression = `${minuto} ${hora} * * *`;
-        cron.schedule(cronExpression, () => {
-            checkAnswer();
-        }, {
-            timezone: 'America/Sao_Paulo'
-        });
-    }
+    cron.schedule('28 14 * * *', () => {
+        sendMessage();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
 
-    checkAnswer(13, 9);
-    checkAnswer(13, 14);
-    checkAnswer(13, 19);
-    checkAnswer(13, 24);
+    cron.schedule('29 14 * * *', () => {
+        sendMessage();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
 
-   
-    
-//     // verifica se a mensagem foi respondida todo dia às 22h
-//     cron.schedule('0 22 * * *', () => {
-//         checkAnswer();
-//     }, {
-//         timezone: 'America/Sao_Paulo'
-//     });
- });
+
+    // verifica se a mensagem foi respondida todo dia às 22h
+    cron.schedule('54 13 * * *', () => {
+        checkAnswer();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
+
+    cron.schedule('59 13 * * *', () => {
+        checkAnswer();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
+
+    cron.schedule('04 14 * * *', () => {
+        checkAnswer();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
+
+    cron.schedule('09 14 * * *', () => {
+        checkAnswer();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
+});
 
 // executado quando uma mensagem é recebida
 client.on('message', async (msg) => {
@@ -77,31 +89,35 @@ client.on('message', async (msg) => {
 // manda a mensagem
 async function sendMessage() {
     const dataAtual = new Date();
-    const horaAtual = dataAtual.toLocaleTimeString();
-
+    const horaAtual = dataAtual.toLocaleTimeString().slice(0, 5);
+    const diaSemana = dataAtual.getDay(); // Obtém o dia da semana (0-6)
+  
     respondeu = false;
-
-    try {
-        const message = `Oi mo, já bateu o ponto das ${horaAtual}? 🤔`;
+  
+    if (diaSemana >= 1 && diaSemana <= 5) { // Verifica se é dia da semana
+      try {
+        const message = `Oi mo, já bateu o ponto das ${horaAtual}? `;
         await client.sendMessage(groupChatId, message);
         console.log('Message sent:', message);
       } catch (err) {
         console.error('Error sending message:', err);
       }
-}
+    }
+  }
 
 // verifica se a mensagem foi respondida. se não, seta um lembrete a cada hora
 async function checkAnswer() {
     if (!respondeu) {
-        reminder = cron.schedule('0 * * * *', () => {
+        reminder = cron.schedule('*/10 * * * *', () => {
             sendReminder();
         });
     }
 }
+  
 
 // manda o lembrete
 async function sendReminder() {
-    await client.sendMessage(groupChatId, 'Olha, o pontooooo...');
+    await client.sendMessage(groupChatId, 'Bater o ponto urgentih 🤔');
 }
 
 client.initialize();
