@@ -22,25 +22,25 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('35 14 * * *', () => {
+    cron.schedule('49 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('36 14 * * *', () => {
+    cron.schedule('50 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('37 14 * * *', () => {
+    cron.schedule('51 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('38 14 * * *', () => {
+    cron.schedule('52 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
