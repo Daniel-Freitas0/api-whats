@@ -22,25 +22,25 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('49 14 * * *', () => {
+    cron.schedule('50 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('50 14 * * *', () => {
+    cron.schedule('55 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('51 14 * * *', () => {
+    cron.schedule('00 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('52 14 * * *', () => {
+    cron.schedule('02 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -90,20 +90,17 @@ client.on('message', async (msg) => {
 async function sendMessage() {
     const dataAtual = new Date();
     const horaAtual = dataAtual.toLocaleTimeString().slice(0, 5);
-    const diaSemana = dataAtual.getDay(); // Obtém o dia da semana (0-6)
-  
+
     respondeu = false;
-  
-    if (diaSemana >= 1 && diaSemana <= 5) { // Verifica se é dia da semana
-      try {
-        const message = `Oi mo, já bateu o ponto das ${horaAtual}? `;
+
+    try {
+        const message = `Oi mo, já bateu o ponto das ${horaAtual}? 🤔`;
         await client.sendMessage(groupChatId, message);
         console.log('Message sent:', message);
       } catch (err) {
         console.error('Error sending message:', err);
       }
-    }
-  }
+}
 
 // verifica se a mensagem foi respondida. se não, seta um lembrete a cada hora
 async function checkAnswer() {
