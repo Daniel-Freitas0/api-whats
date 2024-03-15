@@ -22,25 +22,25 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('15 20 * * *', () => {
+    cron.schedule('09 20 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('16 20 * * *', () => {
+    cron.schedule('10 20 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('17 20 * * *', () => {
+    cron.schedule('11 20 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('18 20 * * *', () => {
+    cron.schedule('12 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -94,7 +94,7 @@ async function sendMessage() {
     respondeu = false;
 
     try {
-        const message = `Oi mo, já bateu o ponto das ${horaAtual}? 🤔`;
+        const message = `Oi, já bateu o ponto das ${horaAtual}? 🤔`;
         await client.sendMessage(groupChatId, message);
         console.log('Message sent:', message);
       } catch (err) {
@@ -114,7 +114,7 @@ async function checkAnswer() {
 
 // manda o lembrete
 async function sendReminder() {
-    await client.sendMessage(groupChatId, 'Bater o ponto urgentih 🤔');
+    await client.sendMessage(groupChatId, 'Bater o ponto urgentih');
 }
 
 client.initialize();
