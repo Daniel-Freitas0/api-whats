@@ -89,7 +89,7 @@ client.on('message', async (msg) => {
 // manda a mensagem
 async function sendMessage() {
     const dataAtual = new Date();
-    const horaAtual = dataAtual.toLocaleTimeString();
+    const horaAtual = dataAtual.toLocaleTimeString().slice(0, 5);
 
     respondeu = false;
 
