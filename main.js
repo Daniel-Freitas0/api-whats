@@ -23,19 +23,19 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('07 14 * * *', () => {
+    cron.schedule('20 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('09 14 * * *', () => {
+    cron.schedule('23 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('11 14 * * *', () => {
+    cron.schedule('26 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -46,20 +46,20 @@ client.on('ready', () => {
 
     // verifica se a mensagem foi respondida
 
-    cron.schedule('08 14 * * *', () => {
-        checkAnswer();
+    cron.schedule('22 14 * * *', () => {
+        checkAnswer("14:20");
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('10 14 * * *', () => {
-        checkAnswer();
+    cron.schedule('25 14 * * *', () => {
+        checkAnswer("14:23");
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('12 14 * * *', () => {
-        checkAnswer();
+    cron.schedule('28 14 * * *', () => {
+        checkAnswer("14:26");
     }, {
         timezone: 'America/Sao_Paulo'
     });
@@ -96,12 +96,12 @@ async function sendMessage() {
 }
 
 // verifica se a mensagem foi respondida. se não, seta um lembrete a cada hora
-async function checkAnswer() {
+async function checkAnswer(a) {
     console.log("Checando a resposta")
     if (!respondeu) {
       console.log("Não respondeu! Criando o reminder")
       reminder = cron.schedule('*/2 * * * *', () => {
-        sendReminder();
+        sendReminder(a);
       });
     } else {
       console.log("Resposta recebida! Cancelando o reminder")
@@ -111,9 +111,9 @@ async function checkAnswer() {
   
 
 // manda o lembrete
-async function sendReminder() {
+async function sendReminder(a) {
     console.log("Mandando lembrete")
-    await client.sendMessage(groupChatId, 'Bater o ponto urgentih');
+    await client.sendMessage(groupChatId, 'Bater o ponto das ' +a+ ' urgentih');
 }
 
 client.initialize();
