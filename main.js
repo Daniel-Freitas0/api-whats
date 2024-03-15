@@ -4,6 +4,7 @@ const cron = require('node-cron');
 
 const groupChatId = '120363241557953097@g.us';
 let reminder = null;
+let respondeu = false;
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -22,25 +23,7 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('17 13 * * *', () => {
-        sendMessage();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
-    cron.schedule('19 13 * * *', () => {
-        sendMessage();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
-    cron.schedule('21 13 * * *', () => {
-        sendMessage();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
-    cron.schedule('22 13 * * *', () => {
+    cron.schedule('24 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -48,25 +31,7 @@ client.on('ready', () => {
 
 
     // verifica se a mensagem foi respondida todo dia às 22h
-    cron.schedule('19 13 * * *', () => {
-        checkAnswer();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
-    cron.schedule('22 13 * * *', () => {
-        checkAnswer();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
-    cron.schedule('23 14 * * *', () => {
-        checkAnswer();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
-    cron.schedule('24 14 * * *', () => {
+    cron.schedule('26 13 * * *', () => {
         checkAnswer();
     }, {
         timezone: 'America/Sao_Paulo'
