@@ -95,7 +95,7 @@ async function sendMessage() {
     respondeu = false;
 
     try {
-        const message = `Oi, já bateu o ponto das ${horaAtual}? 🤔`;
+        const message = `Oi, já bateu o ponto das ${currentTime}? 🤔`;
         await client.sendMessage(groupChatId, message);
         console.log('Message sent:', message);
       } catch (err) {
