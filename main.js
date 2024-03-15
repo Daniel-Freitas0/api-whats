@@ -23,12 +23,6 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('20 14 * * *', () => {
-        sendMessage();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
-
     cron.schedule('23 14 * * *', () => {
         sendMessage();
     }, {
@@ -41,16 +35,16 @@ client.on('ready', () => {
         timezone: 'America/Sao_Paulo'
     });
 
+    cron.schedule('29 14 * * *', () => {
+        sendMessage();
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
+
    
 
 
     // verifica se a mensagem foi respondida
-
-    cron.schedule('22 14 * * *', () => {
-        checkAnswer("14:20");
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
 
     cron.schedule('25 14 * * *', () => {
         checkAnswer("14:23");
@@ -60,6 +54,12 @@ client.on('ready', () => {
 
     cron.schedule('28 14 * * *', () => {
         checkAnswer("14:26");
+    }, {
+        timezone: 'America/Sao_Paulo'
+    });
+
+    cron.schedule('31 14 * * *', () => {
+        checkAnswer("14:29");
     }, {
         timezone: 'America/Sao_Paulo'
     });
