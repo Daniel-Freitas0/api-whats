@@ -23,13 +23,13 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('45 14 * * *', () => {
+    cron.schedule('49 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('50 14 * * *', () => {
+    cron.schedule('52 14 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -46,14 +46,14 @@ client.on('ready', () => {
 
     // verifica se a mensagem foi respondida
 
-    cron.schedule('47 14 * * *', () => {
-        checkAnswer("14:47");
+    cron.schedule('51 14 * * *', () => {
+        checkAnswer("14:51");
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('52 14 * * *', () => {
-        checkAnswer("14:52");
+    cron.schedule('54 14 * * *', () => {
+        checkAnswer("14:54");
     }, {
         timezone: 'America/Sao_Paulo'
     });
@@ -100,6 +100,7 @@ async function checkAnswer(a) {
     console.log("Checando a resposta")
     if (!respondeu) {
       console.log("Não respondeu! Criando o reminder")
+      if(reminder){reminder.stop()}
       reminder = cron.schedule('*/2 * * * *', () => {
         sendReminder(a);
       });
