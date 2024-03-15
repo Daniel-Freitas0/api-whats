@@ -22,25 +22,25 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('59 12 * * *', () => {
+    cron.schedule('04 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('00 13 * * *', () => {
+    cron.schedule('05 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('01 13 * * *', () => {
+    cron.schedule('06 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
     });
 
-    cron.schedule('02 13 * * *', () => {
+    cron.schedule('07 13 * * *', () => {
         sendMessage();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -48,7 +48,7 @@ client.on('ready', () => {
 
 
     // verifica se a mensagem foi respondida todo dia às 22h
-    cron.schedule('54 13 * * *', () => {
+    cron.schedule('08 13 * * *', () => {
         checkAnswer();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -89,7 +89,7 @@ client.on('message', async (msg) => {
 // manda a mensagem
 async function sendMessage() {
     const dataAtual = new Date();
-    const horaAtual = dataAtual.toLocaleString('en-US', {timeZone:'America/Sao_Paulo'}).slice(0, 5);
+    const horaAtual = dataAtual.getHours() + ':' + dataAtual.getMinutes();
 
     respondeu = false;
 
