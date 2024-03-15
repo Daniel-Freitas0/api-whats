@@ -23,15 +23,17 @@ client.on('ready', () => {
     console.log('Client is ready!');
     // manda a mensagem todo dia às 13h
 
-    cron.schedule('24 13 * * *', () => {
-        sendMessage();
-    }, {
-        timezone: 'America/Sao_Paulo'
-    });
+    // cron.schedule('24 13 * * *', () => {
+    //     sendMessage();
+    // }, {
+    //     timezone: 'America/Sao_Paulo'
+    // });
+
+    sendMessage();
 
 
     // verifica se a mensagem foi respondida todo dia às 22h
-    cron.schedule('26 13 * * *', () => {
+    cron.schedule('35 13 * * *', () => {
         checkAnswer();
     }, {
         timezone: 'America/Sao_Paulo'
@@ -55,8 +57,8 @@ client.on('message', async (msg) => {
 async function sendMessage() {
     
     let currentTime = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-      currentTime = currentTime.split(', ')[1];
-       currentTime = currentTime.split(':')[0] + ':' + currentTime.split(':')[1];
+    currentTime = currentTime.split(', ')[1];
+    currentTime = currentTime.split(':')[0] + ':' + currentTime.split(':')[1];
     respondeu = false;
 
     try {
@@ -70,7 +72,9 @@ async function sendMessage() {
 
 // verifica se a mensagem foi respondida. se não, seta um lembrete a cada hora
 async function checkAnswer() {
+    console.log("Checando a resposta")
     if (!respondeu) {
+        console.log("Não respondeu! Criando o reminder")
         reminder = cron.schedule('*/10 * * * *', () => {
             sendReminder();
         });
@@ -80,6 +84,7 @@ async function checkAnswer() {
 
 // manda o lembrete
 async function sendReminder() {
+    console.log("Mandando lembrete")
     await client.sendMessage(groupChatId, 'Bater o ponto urgentih');
 }
 
